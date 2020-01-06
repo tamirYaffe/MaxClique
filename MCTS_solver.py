@@ -64,7 +64,7 @@ def create_graph():
     make_clique(G, [1, 3, 4, 6, 10, 13, 100, 102, 105, 114, 117, 118, 119, 212, 218])
     make_clique(G, [1, 203, 4, 6, 110, 213, 216])
     make_clique(G, [3, 5, 6, 17, 210, 211])
-    make_clique(G, [2, 11, 215, 17, 109, 217])
+    make_clique(G, [2, 11, 215, 17, 109, 12, 217])
     G.add_edge(0, 16)
     G.add_edge(13, 15)
     G.add_edge(13, 12)
