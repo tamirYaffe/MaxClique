@@ -6,7 +6,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 G = nx.Graph()
-mcts = mcts(timeLimit=1)
+mcts = mcts(timeLimit=0.03)
 
 
 def is_connected_to_all(node, clique):

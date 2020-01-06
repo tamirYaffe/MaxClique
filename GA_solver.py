@@ -162,12 +162,12 @@ def create_model():
 def main():
     create_graph()
     create_model()
-    random.seed(64)
+    # random.seed(64)
 
     # create an initial population of 300 individuals (where
     # each individual is a list of integers)
-    pop = toolbox.population(n=100)
-    generations = 50
+    pop = toolbox.population(n=75)
+    generations = 30
 
     # CXPB  is the probability with which two individuals
     #       are crossed
