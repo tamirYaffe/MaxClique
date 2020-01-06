@@ -58,12 +58,50 @@ def create_graph():
     G = nx.Graph()
     for i in range(0, 20):
         G.add_node(i)
-    make_clique(G, [0, 2, 5, 14, 17, 18, 19])
-    make_clique(G, [1, 3, 4, 6, 10, 13])
-    make_clique(G, [3, 5, 6, 17])
+        G.add_node(100 + i)
+        G.add_node(200 + i)
+    make_clique(G, [0, 2, 5, 14, 17, 18, 19, 116, 110, 105, 215, 217, 209])
+    make_clique(G, [1, 3, 4, 6, 10, 13, 100, 102, 105, 114, 117, 118, 119, 212, 218])
+    make_clique(G, [1, 203, 4, 6, 110, 213, 216])
+    make_clique(G, [3, 5, 6, 17, 210, 211, 217])
+    make_clique(G, [2, 11, 215, 17, 109, 217])
     G.add_edge(0, 16)
     G.add_edge(13, 15)
     G.add_edge(13, 12)
+    G.add_edge(100, 102)
+    G.add_edge(200, 101)
+    G.add_edge(204, 106)
+    G.add_edge(214, 117)
+    G.add_edge(201, 103)
+    G.add_edge(115, 102)
+    G.add_edge(13, 1)
+    G.add_edge(3, 219)
+    G.add_edge(1, 2)
+    G.add_edge(4, 116)
+    G.add_edge(201, 103)
+    G.add_edge(5, 12)
+    G.add_edge(6, 114)
+    G.add_edge(7, 15)
+    G.add_edge(7, 8)
+    G.add_edge(9, 110)
+    G.add_edge(10, 206)
+    G.add_edge(10, 11)
+    G.add_edge(104, 111)
+    G.add_edge(107, 111)
+    G.add_edge(108, 11)
+    G.add_edge(109, 112)
+    G.add_edge(202, 113)
+    G.add_edge(208, 113)
+    G.add_edge(202, 205)
+    G.add_edge(207, 205)
+    G.add_edge(209, 205)
+    G.add_edge(104, 7)
+    G.add_edge(106, 7)
+    G.add_edge(106, 104)
+    G.add_edge(207, 16)
+    G.add_edge(219, 113)
+    G.add_edge(205, 101)
+    G.add_edge(201, 19)
 
 
 def generate_random_graph(number_of_vertices=20, edges_probability=0.8):
@@ -78,13 +116,13 @@ def generate_random_graph(number_of_vertices=20, edges_probability=0.8):
 
 
 def main():
-    generate_random_graph(50, 0.08)
+    # generate_random_graph(50, 0.08)
+    state = CliqueState()
+    while not state.isTerminal():
+        best_action = mcts.search(initialState=state)
+        state = state.takeAction(best_action)
     draw_graph(G)
-    # state = CliqueState()
-    # while not state.isTerminal():
-    #     best_action = mcts.search(initialState=state)
-    #     state = state.takeAction(best_action)
-    # print(state)
+    print(state)
 
 
 def draw_graph(graph):
