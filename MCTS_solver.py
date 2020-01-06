@@ -52,56 +52,53 @@ def make_clique(graph, nodes):
                 continue
             graph.add_edge(node, other_node)
 
-
 def create_graph():
     global G
     G = nx.Graph()
-    for i in range(0, 20):
+    for i in range(0, 60):
         G.add_node(i)
-        G.add_node(100 + i)
-        G.add_node(200 + i)
-    make_clique(G, [0, 2, 5, 14, 17, 18, 19, 116, 110, 105, 215, 217, 209])
-    make_clique(G, [1, 3, 4, 6, 10, 13, 100, 102, 105, 114, 117, 118, 119, 212, 218])
-    make_clique(G, [1, 203, 4, 6, 110, 213, 216])
-    make_clique(G, [3, 5, 6, 17, 210, 211])
-    make_clique(G, [2, 11, 215, 17, 109, 12, 217])
+    make_clique(G, [0, 2, 5, 14, 17, 18, 19, 36, 30, 25, 55, 57, 49])
+    make_clique(G, [1, 3, 4, 6, 10, 13, 20, 22, 25, 34, 37, 38, 39, 52, 58])
+    make_clique(G, [1, 43, 4, 6, 30, 53, 56])
+    make_clique(G, [3, 5, 6, 17, 50, 51])
+    make_clique(G, [2, 11, 55, 17, 29, 12, 57])
     G.add_edge(0, 16)
     G.add_edge(13, 15)
     G.add_edge(13, 12)
-    G.add_edge(100, 102)
-    G.add_edge(200, 101)
-    G.add_edge(204, 106)
-    G.add_edge(214, 117)
-    G.add_edge(201, 103)
-    G.add_edge(115, 102)
+    G.add_edge(20, 22)
+    G.add_edge(40, 21)
+    G.add_edge(44, 26)
+    G.add_edge(54, 37)
+    G.add_edge(41, 23)
+    G.add_edge(35, 22)
     G.add_edge(13, 1)
-    G.add_edge(3, 219)
+    G.add_edge(3, 59)
     G.add_edge(1, 2)
-    G.add_edge(4, 116)
-    G.add_edge(201, 103)
+    G.add_edge(4, 36)
+    G.add_edge(41, 23)
     G.add_edge(5, 12)
-    G.add_edge(6, 114)
+    G.add_edge(6, 34)
     G.add_edge(7, 15)
     G.add_edge(7, 8)
-    G.add_edge(9, 110)
-    G.add_edge(10, 206)
+    G.add_edge(9, 30)
+    G.add_edge(10, 46)
     G.add_edge(10, 11)
-    G.add_edge(104, 111)
-    G.add_edge(107, 111)
-    G.add_edge(108, 11)
-    G.add_edge(109, 112)
-    G.add_edge(202, 113)
-    G.add_edge(208, 113)
-    G.add_edge(202, 205)
-    G.add_edge(207, 205)
-    G.add_edge(209, 205)
-    G.add_edge(104, 7)
-    G.add_edge(106, 7)
-    G.add_edge(106, 104)
-    G.add_edge(207, 16)
-    G.add_edge(219, 113)
-    G.add_edge(205, 101)
-    G.add_edge(201, 19)
+    G.add_edge(24, 31)
+    G.add_edge(27, 31)
+    G.add_edge(28, 11)
+    G.add_edge(29, 32)
+    G.add_edge(42, 33)
+    G.add_edge(48, 33)
+    G.add_edge(42, 45)
+    G.add_edge(47, 45)
+    G.add_edge(49, 45)
+    G.add_edge(24, 7)
+    G.add_edge(26, 7)
+    G.add_edge(26, 24)
+    G.add_edge(47, 16)
+    G.add_edge(59, 33)
+    G.add_edge(45, 21)
+    G.add_edge(41, 19)
 
 
 def generate_random_graph(number_of_vertices=20, edges_probability=0.8):
@@ -121,20 +118,21 @@ def main():
     while not state.isTerminal():
         best_action = mcts.search(initialState=state)
         state = state.takeAction(best_action)
-    draw_graph(G)
+    draw_graph(G, state.clique_set)
     print(state)
 
 
-def draw_graph(graph):
+def draw_graph(graph, solution={}):
     # pos = {}
     nodes_labels = {}
     for node in graph.nodes:
         #     pos[node] = (int(node / 5), node % 5)
         nodes_labels[node] = node
-    pos = nx.spring_layout(graph)
+    pos = nx.circular_layout(graph)
     nx.draw_networkx_nodes(graph, pos, nodelist=graph.nodes, node_size=250)
     nx.draw_networkx_edges(graph, pos, edgelist=graph.edges, alpha=1, width=2)
     nx.draw_networkx_labels(graph, pos, nodes_labels, font_size=10)
+    nx.draw_networkx_nodes(graph, pos, nodelist=solution, node_size=250, node_color='#FF0000')
     plt.show()
 
 
