@@ -1,7 +1,9 @@
 import time
+import random
 from mcts import mcts
 from copy import deepcopy
 import networkx as nx
+import matplotlib.pyplot as plt
 
 G = nx.Graph()
 mcts = mcts(timeLimit=1)
@@ -64,12 +66,38 @@ def create_graph():
     G.add_edge(13, 12)
 
 
+def generate_random_graph(number_of_vertices=20, edges_probability=0.8):
+    global G
+    G = nx.Graph()
+    for i in range(0, number_of_vertices):
+        G.add_node(i)
+    for i in range(0, number_of_vertices):
+        for j in range(0, number_of_vertices):
+            if random.random() < edges_probability:
+                G.add_edge(i, j)
+
+
 def main():
-    state = CliqueState()
-    while not state.isTerminal():
-        best_action = mcts.search(initialState=state)
-        state = state.takeAction(best_action)
-    print(state)
+    generate_random_graph(50, 0.08)
+    draw_graph(G)
+    # state = CliqueState()
+    # while not state.isTerminal():
+    #     best_action = mcts.search(initialState=state)
+    #     state = state.takeAction(best_action)
+    # print(state)
+
+
+def draw_graph(graph):
+    # pos = {}
+    nodes_labels = {}
+    for node in graph.nodes:
+        #     pos[node] = (int(node / 5), node % 5)
+        nodes_labels[node] = node
+    pos = nx.spring_layout(graph)
+    nx.draw_networkx_nodes(graph, pos, nodelist=graph.nodes, node_size=250)
+    nx.draw_networkx_edges(graph, pos, edgelist=graph.edges, alpha=1, width=2)
+    nx.draw_networkx_labels(graph, pos, nodes_labels, font_size=10)
+    plt.show()
 
 
 if __name__ == "__main__":
